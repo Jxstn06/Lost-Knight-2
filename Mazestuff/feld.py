@@ -3,3 +3,4 @@ class Feld:
         self.x = x
         self.y = y
         self.feldtyp = feldtyp
+        self.entdeckt = False

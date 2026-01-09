@@ -11,7 +11,7 @@ class Maze:
             'Spawn': [r.randrange(1, self.b, 2), r.randrange(1, self.h, 2)]
         }
         self.grid[self.koords['Spawn'][1]][self.koords['Spawn'][0]].feldtyp = 'Spawn'
-        self.weg_algo(0.08)
+        self.weg_algo(0.20)
         # self.draw_maze()
 
     def weg_algo(self, chance):
