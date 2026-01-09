@@ -74,4 +74,4 @@ class Maze:
         return print(drawgrid)
 
 
-a = Maze(30, 10)
+a = Maze(15, 5)
