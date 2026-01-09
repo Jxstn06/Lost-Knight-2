@@ -22,7 +22,7 @@ class Menuszene(Szene):
         for button in self.buttons:
             if button.handel_event(event):
                 if button.text == 'Play':
-                    pass
+                    self.manager.set_szene('spielszene')
                 if button.text == 'Quit':
                     pygame.quit()
                     sys.exit()

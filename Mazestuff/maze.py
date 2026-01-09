@@ -12,7 +12,7 @@ class Maze:
         }
         self.grid[self.koords['Spawn'][1]][self.koords['Spawn'][0]].feldtyp = 'Spawn'
         self.weg_algo(0.08)
-        self.draw_maze()
+        # self.draw_maze()
 
     def weg_algo(self, chance):
         richtungen = [(0, 2), (2, 0), (0, -2), (-2, 0)]
@@ -44,7 +44,7 @@ class Maze:
             else:
                 stack.pop()
 
-        # Es werden alle Wände zwischen zwei Wege beachtet
+        # Alle Wege mit Wand dazwischen
         for y in range(1, self.h-1):
             for x in range(1, self.b-1):
                 if self.grid[y][x].feldtyp != 'Wand':
@@ -72,6 +72,3 @@ class Maze:
             drawgrid += '\n'
 
         return print(drawgrid)
-
-
-a = Maze(15, 5)

@@ -3,6 +3,7 @@ from settings import Settings
 
 from manager import Manager
 from Szenen.menu import Menuszene
+from Szenen.spielszene import Spielszene
 
 
 class LostKnight:
@@ -15,9 +16,11 @@ class LostKnight:
 
         self.manager = Manager('menuszene')
         self.menuszene = Menuszene(self.screen, self.manager)
+        self.spielszene = Spielszene(self.screen, self.manager)
 
         self.szenen = {
-            'menuszene': self.menuszene
+            'menuszene': self.menuszene,
+            'spielszene': self.spielszene
         }
         self.manager.szenen = self.szenen
 

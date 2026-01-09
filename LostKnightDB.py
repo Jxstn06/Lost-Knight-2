@@ -7,3 +7,4 @@ class Spieler(SQLObject):
     Name = StringCol()
     x = IntCol()
     y = IntCol()
+
