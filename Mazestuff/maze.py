@@ -1,5 +1,5 @@
 import random as r
-from mazezeug.feld import Feld
+from Mazestuff.feld import Feld
 
 
 class Maze:

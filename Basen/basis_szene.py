@@ -1,4 +1,4 @@
-class Scene:
+class Szene:
 
     def handle_events(self, event):
         pass

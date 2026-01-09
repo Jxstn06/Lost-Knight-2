@@ -2,7 +2,7 @@ import pygame
 
 
 class Button:
-    def __init__(self, x, y, b, h, text, color=(200, 200, 200), hover_color=(200, 200, 200)):
+    def __init__(self, x, y, b, h, text, color=(200, 200, 200), hover_color=(255, 255, 0)):
         self.rect = pygame.Rect(x, y, b, h)
         self.text = text
         self.font = pygame.font.Font(None, 30)
