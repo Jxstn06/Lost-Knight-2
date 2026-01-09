@@ -18,10 +18,12 @@ class Auswahlszene(Szene):
 
         self.slots = []
         self.spieler = list(Spieler.select())
+        self.ausgewaehlt = None
+
+        self.build_slots()
 
     def build_slots(self):
         self.slots.clear()
-
         for i in range(self.settings.slot_anzahl):
             spieler = self.spieler[i] if i < len(self.spieler) else None
 
@@ -42,15 +44,24 @@ class Auswahlszene(Szene):
         for slot in self.slots:
             if slot.handle_events(event):
                 if slot.spieler:
-                    print(f'{slot.spieler.Name}')
+                    # Alle werden unselected
+                    for s in self.slots:
+                        s.button.selected = False
+                    # Angeklickter Slot wird makiert
+                    slot.button.selected = True
+                    print(f'Gewählt| UID: {slot.spieler.id} - {slot.spieler.Name}')
                 else:
                     self.manager.set_szene('newcharszene')
 
     def draw(self):
         self.display.fill(self.settings.hintergrundFarbe)
-        # Für die aktuellste Anzeige hier nochmal auslesen
+
+        # Spielerliste Aktualisieren
         self.spieler = list(Spieler.select())
-        self.build_slots()
+        for i, spieler in enumerate(self.spieler):
+            if i < len(self.slots):
+                self.slots[i].spieler = spieler
+                self.slots[i].button.auswahlbar = True
 
         for slot in self.slots:
             slot.draw(self.display)
