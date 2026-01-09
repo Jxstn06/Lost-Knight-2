@@ -12,7 +12,6 @@ class Maze:
         }
         self.grid[self.koords['Spawn'][1]][self.koords['Spawn'][0]].feldtyp = 'Spawn'
         self.weg_algo(0.20)
-        # self.draw_maze()
 
     def weg_algo(self, chance):
         richtungen = [(0, 2), (2, 0), (0, -2), (-2, 0)]
@@ -57,18 +56,18 @@ class Maze:
                     self.grid[y][x].feldtyp = 'Weg'
 
     def draw_maze(self):
-        drawgrid = ''
+        lines = []
         for zeile in self.grid:
+            line = ''
             for zelle in zeile:
                 match zelle.feldtyp:
                     case 'Wand':
-                        drawgrid += '█'
+                        line += '█'
                     case 'Spawn':
-                        drawgrid += 'S'
+                        line += 'S'
                     case 'Weg':
-                        drawgrid += ' '
+                        line += ' '
                     case _:
-                        drawgrid += '?'
-            drawgrid += '\n'
-
-        return print(drawgrid)
+                        line += '?'
+            lines.append(line)
+        return '\n'.join(lines)

@@ -14,15 +14,15 @@ class Menuszene(Szene):
         self.settings = Settings()
 
         self.buttons = [
-            Button(self.settings.bildschirm_breite/2-100, self.settings.bildschirm_hoehe/10*3, 200, 50, 'Play'),
-            Button(self.settings.bildschirm_breite/2-100, self.settings.bildschirm_hoehe/10*6, 200, 50, 'Quit')
+            Button(int(self.settings.bildschirm_breite//2-100), self.settings.bildschirm_hoehe/10*3, 200, 50, 'Play'),
+            Button(int(self.settings.bildschirm_breite//2-100), self.settings.bildschirm_hoehe/10*6, 200, 50, 'Quit')
         ]
 
     def handle_events(self, event):
         for button in self.buttons:
-            if button.handel_event(event):
+            if button.handle_events(event):
                 if button.text == 'Play':
-                    self.manager.set_szene('spielszene')
+                    self.manager.set_szene('auswahlszene')
                 if button.text == 'Quit':
                     pygame.quit()
                     sys.exit()
@@ -32,5 +32,7 @@ class Menuszene(Szene):
                 sys.exit()
 
     def draw(self):
+        self.display.fill(self.settings.hintergrundFarbe)
+
         for button in self.buttons:
             button.draw(self.display)
