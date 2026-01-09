@@ -1,5 +1,5 @@
 from lostknight import LostKnight
-from LostKnightDB import Spieler
+from lostknightdb import Spieler
 
 if __name__ == "__main__":
     Spieler.createTable(ifNotExists=True)

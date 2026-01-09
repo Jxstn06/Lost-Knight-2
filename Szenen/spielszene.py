@@ -6,7 +6,7 @@ from Basen.basis_szene import Szene
 from settings import Settings
 
 from Mazestuff.maze import Maze
-from LostKnightDB import Spieler
+from lostknightdb import Spieler
 
 
 class Spielszene(Szene):
@@ -19,8 +19,7 @@ class Spielszene(Szene):
         self.maze = Maze(self.settings.maze_breite, self.settings.maze_hoehe)
 
         spawn_x, spawn_y = self.maze.koords['Spawn']
-        self.spieler = Spieler.get(1)
-        self.spieler.x, self.spieler.y = spawn_x, spawn_y
+        # self.spieler.x, self.spieler.y = spawn_x, spawn_y
 
         self.offset_x = (self.settings.bildschirm_breite - self.settings.maze_pixel_breite) // 2
         self.offset_y = (self.settings.bildschirm_hoehe - self.settings.maze_pixel_hoehe) // 2
@@ -66,7 +65,6 @@ class Spielszene(Szene):
                 if feld.feldtyp == 'Wand' or abstand <= self.settings.fov:
                     feld.entdeckt = True
 
-                # Für Ränder
         for y in range(self.maze.h):
             for x in range(self.maze.b):
                 feld = self.maze.grid[y][x]
