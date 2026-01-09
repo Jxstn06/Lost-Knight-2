@@ -66,7 +66,7 @@ class Maze:
                     case 'Spawn':
                         drawgrid += 'S'
                     case 'Weg':
-                        drawgrid += '.'
+                        drawgrid += ' '
                     case _:
                         drawgrid += '?'
             drawgrid += '\n'
