@@ -2,7 +2,7 @@ import pygame
 import sys
 
 from Basen.basis_szene import Szene
-# from Basen.button import Button
+from Basen.button import Button
 from Basen.slot import Slot
 
 from settings import Settings
@@ -19,6 +19,14 @@ class Auswahlszene(Szene):
         self.slots = []
         self.spieler = list(Spieler.select())
         self.ausgewaehlt = None
+
+        self.buttons = [
+            Button(self.settings.bildschirm_breite//10*7,
+                   self.settings.bildschirm_hoehe//10*5,
+                   self.settings.bildschirm_breite//10*2,
+                   (self.settings.bildschirm_hoehe//10*1)/2,
+                   'Delete')
+        ]
 
         self.build_slots()
 
@@ -65,3 +73,6 @@ class Auswahlszene(Szene):
 
         for slot in self.slots:
             slot.draw(self.display)
+
+        for b in self.buttons:
+            b.draw(self.display)
