@@ -24,7 +24,7 @@ class Auswahlszene(Szene):
             Button(self.settings.bildschirm_breite//10*7,
                    self.settings.bildschirm_hoehe//10*5,
                    self.settings.bildschirm_breite//10*2,
-                   (self.settings.bildschirm_hoehe//10*1)/2,
+                   (self.settings.bildschirm_hoehe//10*1)//2,
                    'Delete')
         ]
 
