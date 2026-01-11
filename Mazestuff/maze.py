@@ -3,14 +3,22 @@ from Mazestuff.feld import Feld
 
 
 class Maze:
-    def __init__(self, breite, hoehe):
+    def __init__(self, breite, hoehe, grid=None, spawn=None):
         self.b = breite if breite % 2 == 1 else breite + 1
         self.h = hoehe if hoehe % 2 == 1 else hoehe + 1
-        self.grid = [[Feld(x, y, 'Wand') for x in range(self.b)] for y in range(self.h)]
+
+        if grid:
+            self.grid = grid
+        else:
+            self.grid = [[Feld(x, y, 'Wand') for x in range(self.b)] for y in range(self.h)]
+
         self.koords = {
-            'Spawn': [r.randrange(1, self.b, 2), r.randrange(1, self.h, 2)]
-        }
-        self.grid[self.koords['Spawn'][1]][self.koords['Spawn'][0]].feldtyp = 'Spawn'
+                'Spawn': [r.randrange(1, self.b, 2), r.randrange(1, self.h, 2)]
+            }
+        sx, sy = self.koords['Spawn']
+        self.grid[sy][sx].feldtyp = 'Spawn'
+
+        # 20% Wahrscheinlichkeit, das eine Wand zum Weg wird.
         self.weg_algo(0.20)
 
     def weg_algo(self, chance):
@@ -55,7 +63,7 @@ class Maze:
                 elif self.grid[y-1][x].feldtyp == 'Weg' and self.grid[y+1][x].feldtyp == 'Weg' and r.random() < chance:
                     self.grid[y][x].feldtyp = 'Weg'
 
-    def draw_maze(self):
+    def to_string(self):
         lines = []
         for zeile in self.grid:
             line = ''
@@ -71,3 +79,31 @@ class Maze:
                         line += '?'
             lines.append(line)
         return '\n'.join(lines)
+
+    @classmethod
+    def from_string(cls, text):
+        lines = text.split('\n')
+        h = len(lines)
+        b = len(lines[0])
+        grid = [[Feld(x, y, 'Wand') for x in range(b)] for y in range(h)]
+        spawn = [0, 0]
+
+        for y in range(h):
+            for x in range(b):
+                char = lines[y][x]
+                feld = grid[y][x]
+
+                if char == "█":
+                    feld.feldtyp = 'Wand'
+                elif char == " ":
+                    feld.feldtyp = 'Weg'
+                elif char == "S":
+                    feld.feldtyp = 'Spawn'
+                    spawn = [x, y]
+
+        maze = cls(b, h, grid=None, spawn=None)
+        maze.grid = grid
+        maze.koords = {'Spawn': spawn}
+
+        return maze
+

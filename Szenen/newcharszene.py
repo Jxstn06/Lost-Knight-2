@@ -1,6 +1,5 @@
 import pygame
 import sys
-import datetime as dt
 
 from Basen.basis_szene import Szene
 from Basen.button import Button
@@ -37,7 +36,7 @@ class Newcharszene(Szene):
     def new_maze(self):
         maze = Maze(self.s.maze_breite, self.s.maze_hoehe)
         px, py = maze.koords['Spawn']
-        m = maze.draw_maze()
+        m = maze.to_string()
         return px, py, m
 
     def input_reset(self):
@@ -64,8 +63,8 @@ class Newcharszene(Szene):
                         Verteidigung=5,
                         x=self.new_maze()[0],
                         y=self.new_maze()[1],
-                        Maze=self.new_maze()[2],
-                        LastUsage=dt.datetime.now())
+                        Maze=self.new_maze()[2]
+                    )
                     # Sorgt für einen leeren String am Anfang der Szene
                     self.input_reset()
                     self.manager.set_szene('auswahlszene')

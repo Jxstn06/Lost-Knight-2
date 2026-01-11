@@ -5,6 +5,8 @@ from Basen.basis_szene import Szene
 from Basen.button import Button
 from Basen.slot import Slot
 
+from Szenen.spielszene import Spielszene
+
 from settings import Settings
 from lostknightdb import Spieler
 
@@ -24,8 +26,14 @@ class Auswahlszene(Szene):
             Button(self.settings.bildschirm_breite//10*7,
                    self.settings.bildschirm_hoehe//10*5,
                    self.settings.bildschirm_breite//10*2,
-                   (self.settings.bildschirm_hoehe//10*1)//2,
-                   'Delete')
+                   self.settings.bildschirm_hoehe//10*1//2,
+                   'Delete'),
+            Button(
+                self.settings.bildschirm_breite // 10 * 7,
+                self.settings.bildschirm_hoehe // 10 * 3,
+                self.settings.bildschirm_breite // 10 * 2,
+                self.settings.bildschirm_hoehe // 10 * 1 // 2,
+                'Play')
         ]
 
         self.build_slots()
@@ -49,9 +57,21 @@ class Auswahlszene(Szene):
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 sys.exit()
+
+        for button in self.buttons:
+            if button.handle_events(event):
+                if button.text == 'Play' and self.manager.spieler:
+                    if 'spielszene' not in self.manager.szenen:
+                        self.manager.szenen['spielszene'] = Spielszene(self.display, self.manager)
+                    self.manager.set_szene('spielszene')
+
         for slot in self.slots:
             if slot.handle_events(event):
                 if slot.spieler:
+
+                    # Spielerübergabe an den Manager
+                    self.manager.spieler = slot.spieler
+
                     # Alle werden unselected
                     for s in self.slots:
                         s.button.selected = False

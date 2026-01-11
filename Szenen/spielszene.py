@@ -4,7 +4,6 @@ import sys
 from Basen.basis_szene import Szene
 from Mazestuff.maze import Maze
 from settings import Settings
-from lostknightdb import Spieler
 
 
 class Spielszene(Szene):
@@ -14,14 +13,12 @@ class Spielszene(Szene):
         self.manager = manager
         self.settings = Settings()
 
-        self.maze = Maze(self.settings.maze_breite, self.settings.maze_hoehe)
-        self.spawnx, self.spawny = self.maze.koords['Spawn']
+        self.spieler = self.manager.spieler
 
-        self.maze = Maze(self.settings.maze_breite, self.settings.maze_hoehe)
+        self.maze = Maze.from_string(self.spieler.Maze)
 
-        spawn_x, spawn_y = self.maze.koords['Spawn']
-        self.spieler = Spieler.get(1)
-        self.spieler.x, self.spieler.y = spawn_x, spawn_y
+        self.spieler.x = self.maze.koords['Spawn'][0]
+        self.spieler.y = self.maze.koords['Spawn'][1]
 
         self.offset_x = (self.settings.bildschirm_breite - self.settings.maze_pixel_breite) // 2
         self.offset_y = (self.settings.bildschirm_hoehe - self.settings.maze_pixel_hoehe) // 2

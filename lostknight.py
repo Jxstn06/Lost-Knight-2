@@ -4,7 +4,6 @@ from settings import Settings
 
 from manager import Manager
 from Szenen.menu import Menuszene
-from Szenen.spielszene import Spielszene
 from Szenen.auswahlszene import Auswahlszene
 from Szenen.newcharszene import Newcharszene
 
@@ -21,7 +20,6 @@ class LostKnight:
 
         self.szenen = {
             'menuszene': Menuszene(self.screen, self.manager),
-            'spielszene': Spielszene(self.screen, self.manager),
             'auswahlszene': Auswahlszene(self.screen, self.manager),
             'newcharszene': Newcharszene(self.screen, self.manager)
         }
